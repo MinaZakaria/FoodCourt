@@ -1,0 +1,16 @@
+<a href="#!/stores/create" name="button">Add Store</a>
+
+<div class="container">
+    <div class="col-sm-6 col-md-4" ng-repeat="store in stores ">
+        <div class="row">
+          <div class="thumbnail">
+            <img ng-src="{{store.StoreLogo}}" alt="...">
+            <div class="caption">
+              <h3 class="text-center">{{store.StoreName}}</h3>
+              <p class="text-center">{{store.StoreDescription}}</p>
+              <p class="text-center"><a href="#!/stores/{{store.StoreID}}/edit" class="btn btn-warning" role="button">Edit</a> <a ng-click="deleteStore(store.StoreID,$index)" class="btn btn-danger" role="button">Delete</a></p>
+            </div>
+          </div>
+      </div>
+  </div>
+</div>

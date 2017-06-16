@@ -24,16 +24,6 @@ class StoreController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
@@ -52,18 +42,13 @@ class StoreController extends Controller
      */
     public function show($id)
     {
-        //
-    }
+        try {
+            $store= Store::where('storeID', $id)->first();
+            return response()->json(['status'=>'200','message'=>'data retrieved successfully','store'=>$store]);
+        } catch (Exception $e) {
+            return response()->json(['status'=>'500','message'=>'there is a problem retrieving the data']);
+        }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
     }
 
     /**
@@ -75,7 +60,22 @@ class StoreController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        return response()->json(['status'=>$_FILES,'message'=>'data updated successfully']);
+
+        try {
+            $store = Store::updateOrCreate(
+                ['storeID' => $id],
+                ['StoreName' => $request->StoreName,'StoreDescription'=>$request->StoreDescription,'StoreLogo'=>$request->StoreLogo]
+            );
+
+            Store::where('storeID', $id)
+                ->update($request->all());
+
+            return response()->json(['status'=>'200','message'=>'data updated successfully']);
+        } catch (Exception $e) {
+            return response()->json(['status'=>'500','message'=>'there is a problem updating the data']);
+        }
+
     }
 
     /**
@@ -86,6 +86,15 @@ class StoreController extends Controller
      */
     public function destroy($id)
     {
-        //
+        try {
+            $store= Store::where('storeID', $id)->first();
+            $store->delete();
+            return response()->json(['status'=>'200','message'=>'data deleted successfully']);
+        } catch (Exception $e) {
+            return response()->json(['status'=>'500','message'=>'there is a problem deleting the data']);
+        }
+
+
+
     }
 }

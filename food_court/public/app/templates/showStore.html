@@ -1,0 +1,17 @@
+<div class="container">
+    <div class="media">
+      <div class="media-left">
+        <a href="#">
+          <img class="media-object img-circle" ng-src="{{store.StoreLogo}}" alt="...">
+        </a>
+      </div>
+      <div class="media-body">
+        <h4 class="media-heading"><strong>{{store.StoreName}}</strong></h4>
+        <hr>
+        {{store.StoreDescription}}
+      </div>
+      <hr>
+    </div>
+    <p class="text-center"><a href="#!/stores/{{store.StoreID}}/edit" class="btn btn-warning" role="button">Edit</a> <a href="#!/" class="btn btn-primary" role="button">Back to list</a></p>
+
+</div>
