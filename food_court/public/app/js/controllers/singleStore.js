@@ -1,20 +1,14 @@
 angular.module("foodCourt").controller('singleStore',function($routeParams,$scope,$rootScope,$location,$route,Stores){
 
     $scope.StoreID = $routeParams['StoreID'];
-    // $scope.filesuploaded =
-    if ($scope.StoreID) {
-        Stores.getSingleStore($scope.StoreID).then(function(data){
-            $scope.store=data.store
-            if (data.store.StoreLogo) {
-                $scope.image_exists = 1;
-            }else {
-                $scope.image_exists = 0;
-            }
-            console.log('all stores',$scope.store);
-        },function(err){
-            console.log(err);
-        })
-    }
+
+    Stores.getSingleStore($scope.StoreID).then(function(data){
+        $scope.store=data.store
+        $scope.image_exists = 1;
+        console.log('all stores',$scope.store);
+    },function(err){
+        console.log(err);
+    })
 
 
     $scope.updateStore=function(){
@@ -23,7 +17,7 @@ angular.module("foodCourt").controller('singleStore',function($routeParams,$scop
             $scope.store.StoreLogo = $rootScope.filesuploaded.name
         }
         Stores.update($scope.StoreID,$scope.store).then(function(data){
-            if (data.status =="200") {
+            if (data.status ==200) {
                 $location.url('/stores/'+$scope.StoreID)
             }else {
                 alert('sry there is a problem updating the data')
@@ -40,14 +34,9 @@ angular.module("foodCourt").controller('singleStore',function($routeParams,$scop
     }
 
     $scope.uploadedFile = function(element) {
-        var fd = new FormData();
-        //Take the first selected file
-        fd.append("file", element.files[0]);
 
-         console.log("element is ",element.files[0].name)
-         $rootScope.filesuploaded = element.files[0];
-        //  $scope.filesuploaded.push(element.files[0]);
-        //  $(element).parent().parent().parent().find('.form-control').val($(element).val().replace(/C:\\fakepath\\/i, ''));
+        console.log("element is ",element.files[0])
+        $rootScope.filesuploaded = element.files[0];
      }
 
 })

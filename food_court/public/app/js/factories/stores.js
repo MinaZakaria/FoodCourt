@@ -57,17 +57,18 @@ angular.module('foodCourt').factory('Stores',function($http,$q,$rootScope){
             return def.promise;
         },
         update : function(storeID,new_data){
-            console.log($rootScope.filesuploaded);
+            console.log(new_data);
             var def = $q.defer();
                 $http({
                     url:'http://localhost:8000/api/stores/'+storeID,
-                    method:'PUT',
-                    // data: new_data,
-                    data: {"media_url": "uploads/files" + $rootScope.filesuploaded.name, "media_type": $rootScope.filesuploaded.type},
+                    method:'post',
+                    data: new_data,
 
                     transformRequest: function (data) {
                         var formData = new FormData();
-                        formData.append("file", $rootScope.filesuploaded);
+                        formData.append("image", $rootScope.filesuploaded);
+                        formData.append("StoreName", data.StoreName);
+                        formData.append("StoreDescription", data.StoreDescription);
                         return formData;
                     },
                     headers: {
@@ -83,21 +84,33 @@ angular.module('foodCourt').factory('Stores',function($http,$q,$rootScope){
                 })
             return def.promise;
         },
-        // update : function(storeID,new_data){
-        //     var def = $q.defer();
-        //         $http({
-        //             url:'http://localhost:8000/api/stores/'+storeID,
-        //             method:'PUT',
-        //             data: new_data
-        //
-        //         }).then(function(res){
-        //             console.log(res.data)
-        //             def.resolve(res.data)
-        //
-        //         },function(err){
-        //             def.reject(err)
-        //         })
-        //     return def.promise;
-        // },
+        create : function(new_data){
+            console.log(new_data);
+            var def = $q.defer();
+                $http({
+                    url:'http://localhost:8000/api/stores',
+                    method:'POST',
+                    data: new_data,
+
+                    transformRequest: function (data) {
+                        var formData = new FormData();
+                        formData.append("image", $rootScope.filesuploaded);
+                        formData.append("StoreName", data.StoreName);
+                        formData.append("StoreDescription", data.StoreDescription);
+                        return formData;
+                    },
+                    headers: {
+                        'Content-Type': undefined,
+                        'Process-Data': false
+                    }
+                }).then(function(res){
+                    console.log(res.data)
+                    def.resolve(res.data)
+
+                },function(err){
+                    def.reject(err)
+                })
+            return def.promise;
+        },
     }
 })

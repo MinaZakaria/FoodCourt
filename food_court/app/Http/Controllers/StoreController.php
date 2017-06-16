@@ -16,10 +16,10 @@ class StoreController extends Controller
     {
         try {
             $stores=Store::all();
-            return response()->json(['status'=>'200','message'=>'data retrieved successfully','stores'=>$stores]);
+            return response()->json(['status'=>200,'message'=>'data retrieved successfully','stores'=>$stores]);
 
         } catch (Exception $e) {
-            return response()->json(['status'=>'500','message'=>'there is a problem retrieving the data']);
+            return response()->json(['status'=>500,'message'=>'there is a problem retrieving the data']);
         }
     }
 
@@ -31,7 +31,22 @@ class StoreController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        if(!empty($_FILES)){
+            $store = new Store;
+            $store->StoreName = $request->StoreName;
+            $store->StoreDescription = $request->StoreDescription;
+            $store->StoreLogo = 'http://localhost:8000/uploads/'.$_FILES['image']['name'];
+            try {
+                $store->save();
+                move_uploaded_file($_FILES['image']['tmp_name'],'uploads/'.$_FILES['image']['name']);
+                return response()->json(['status'=>200,'message'=>'data inserted successfully']);
+            } catch (Exception $e) {
+                return response()->json(['status'=>500, 'message'=>'there is a problem inserting the data']);
+            }
+        }else{
+            return response()->json(['status'=>500, 'message'=>'you must upload picture']);
+        }
+
     }
 
     /**
@@ -44,9 +59,9 @@ class StoreController extends Controller
     {
         try {
             $store= Store::where('storeID', $id)->first();
-            return response()->json(['status'=>'200','message'=>'data retrieved successfully','store'=>$store]);
+            return response()->json(['status'=>200,'message'=>'data retrieved successfully','store'=>$store]);
         } catch (Exception $e) {
-            return response()->json(['status'=>'500','message'=>'there is a problem retrieving the data']);
+            return response()->json(['status'=>500,'message'=>'there is a problem retrieving the data']);
         }
 
     }
@@ -60,20 +75,30 @@ class StoreController extends Controller
      */
     public function update(Request $request, $id)
     {
-        return response()->json(['status'=>$_FILES,'message'=>'data updated successfully']);
 
-        try {
-            $store = Store::updateOrCreate(
-                ['storeID' => $id],
-                ['StoreName' => $request->StoreName,'StoreDescription'=>$request->StoreDescription,'StoreLogo'=>$request->StoreLogo]
-            );
-
-            Store::where('storeID', $id)
-                ->update($request->all());
-
-            return response()->json(['status'=>'200','message'=>'data updated successfully']);
-        } catch (Exception $e) {
-            return response()->json(['status'=>'500','message'=>'there is a problem updating the data']);
+        if(!empty($_FILES)){
+            $store = Store::where('storeID', $id)->first();
+            $store->StoreName = $request->StoreName;
+            $store->StoreDescription = $request->StoreDescription;
+            $store->StoreLogo = 'http://localhost:8000/uploads/'.$_FILES['image']['name'];
+            try {
+                $store->save();
+                move_uploaded_file($_FILES['image']['tmp_name'],'uploads/'.$_FILES['image']['name']);
+                return response()->json(['status'=>200,'message'=>'data updated successfully']);
+            } catch (Exception $e) {
+                return response()->json(['status'=>500, 'message'=>'there is a problem updating the data']);
+            }
+        }else{
+            $store = Store::where('storeID', $id)->first();
+            $store->StoreName = $request->StoreName;
+            $store->StoreDescription = $request->StoreDescription;
+            try {
+                $store->save();
+                return response()->json(['status'=>200,'message'=>'data updated successfully']);
+            } catch (Exception $e) {
+                return response()->json(['status'=>500, 'message'=>'there is a problem updating the data']);
+            }
+            return response()->json(['status'=>500, 'message'=>'you must upload picture']);
         }
 
     }
@@ -89,9 +114,9 @@ class StoreController extends Controller
         try {
             $store= Store::where('storeID', $id)->first();
             $store->delete();
-            return response()->json(['status'=>'200','message'=>'data deleted successfully']);
+            return response()->json(['status'=>200,'message'=>'data deleted successfully']);
         } catch (Exception $e) {
-            return response()->json(['status'=>'500','message'=>'there is a problem deleting the data']);
+            return response()->json(['status'=>500,'message'=>'there is a problem deleting the data']);
         }
 
 

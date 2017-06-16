@@ -1,12 +1,12 @@
 <div class="container">
-    <form class="form-horizontal" ng-submit="submitted=true;updateStore(formStore.$valid)" name="formStore"  enctype="multipart/form-data" novalidate >
-        <!-- <div ng-if="image_exists ==1">
-            <img ng-src="{{store.StoreLogo}}" alt="...">
+    <form class="form-horizontal" ng-submit="submitted=true;updateStore(editStore.$valid)" name="editStore"  enctype="multipart/form-data" novalidate >
+        <div ng-if="image_exists ==1">
+            <img class="media-object" ng-src="{{store.StoreLogo}}" alt="...">
             <a ng-click="image_deleted()"><div class="glyphicon glyphicon-remove"></div>delete pic</a>
-        </div> -->
-        <!-- <div ng-if="image_exists == 0"> -->
+        </div>
+        <div ng-if="image_exists == 0">
             <input type="file" name="StoreLogo" onchange="angular.element(this).scope().uploadedFile(this)">
-        <!-- </div> -->
+        </div>
 
       <div class="form-group">
         <label for="storeName" class="col-sm-2 control-label">Store Name</label>

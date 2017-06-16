@@ -8,11 +8,11 @@ angular.module('foodCourt').config(function($routeProvider){
         controller: 'stores'
     })
     $routeProvider.when('/stores/create',{
-        templateUrl :'templates/formStore.html',
-        controller: 'singleStore'
+        templateUrl :'templates/createStore.html',
+        controller: 'stores'
     })
     $routeProvider.when('/stores/:StoreID/edit',{
-        templateUrl :'templates/formStore.html',
+        templateUrl :'templates/editStore.html',
         controller: 'singleStore'
     })
     $routeProvider.when('/stores/:StoreID',{

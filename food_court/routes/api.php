@@ -18,3 +18,4 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 });
 
 Route::resource('stores','StoreController');
+Route::post('/stores/{id}','StoreController@update');

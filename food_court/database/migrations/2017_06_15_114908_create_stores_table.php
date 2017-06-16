@@ -14,7 +14,6 @@ class CreateStoresTable extends Migration
     public function up()
     {
         Schema::create('stores', function (Blueprint $table) {
-            $table->increments('id');
             $table->increments('StoreID');
             $table->string('StoreName');
             $table->text('StoreDescription');

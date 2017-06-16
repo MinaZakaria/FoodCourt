@@ -1,0 +1,8 @@
+.media-object{
+    width: 160px;
+    height: 125px !important;
+}
+
+.error{
+    color: red;
+}
