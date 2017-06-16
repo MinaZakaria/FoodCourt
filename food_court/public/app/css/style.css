@@ -6,3 +6,22 @@
 .error{
     color: red;
 }
+
+.add_store{
+    text-align: center;
+}
+
+.thumbnail{
+    min-height: 523px;
+    border-color: bisque;
+    background-color: rgba(128, 128, 128, 0.09);
+}
+
+.bgerror{
+    background-image: url(../imgs/404.png);
+    height:600px;
+    padding-top: 0;
+    /*background-size: cover;*/
+    background-repeat: no-repeat;
+    background-position: center;
+}

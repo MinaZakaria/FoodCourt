@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Store;
-
+use File;
 class StoreController extends Controller
 {
     /**
@@ -31,6 +31,9 @@ class StoreController extends Controller
      */
     public function store(Request $request)
     {
+        if (!file_exists(public_path().'/uploads')) {
+            File::makeDirectory(public_path().'/uploads', 0775, true);
+        }
         if(!empty($_FILES)){
             $store = new Store;
             $store->StoreName = $request->StoreName;
@@ -75,7 +78,9 @@ class StoreController extends Controller
      */
     public function update(Request $request, $id)
     {
-
+        if (!file_exists(public_path().'/uploads')) {
+            File::makeDirectory(public_path().'/uploads', 0775, true);
+        }
         if(!empty($_FILES)){
             $store = Store::where('storeID', $id)->first();
             $store->StoreName = $request->StoreName;

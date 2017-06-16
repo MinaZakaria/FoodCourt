@@ -1,10 +1,5 @@
 angular.module('foodCourt').factory('Stores',function($http,$q,$rootScope){
-    var headers = {
-        'Access-Control-Allow-Origin' : '*',
-        'Access-Control-Allow-Methods' : 'POST, GET, OPTIONS, PUT',
-        'Content-Type': 'application/json',
-        'Accept': 'application/json'
-    };
+
     return {
         getAllStores : function(){
             var def = $q.defer();

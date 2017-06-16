@@ -1,4 +1,4 @@
-angular.module("foodCourt").controller('stores',function($scope,$rootScope,$location,Stores){
+angular.module("foodCourt").controller('stores',function($scope,$rootScope,$location,Stores,$route){
 
     console.log('inside stores controller');
     Stores.getAllStores().then(function(data){
@@ -11,8 +11,9 @@ angular.module("foodCourt").controller('stores',function($scope,$rootScope,$loca
     $scope.deleteStore=function(storeID,index){
         console.log(storeID,index);
         Stores.delete(storeID).then(function(data){
+            console.log("data after delete",data);
             if (data.status ==200) {
-                alert('data deleted successfully')
+                $route.reload();
             }else {
                 alert('sry there is a problem deleting the data')
             }
