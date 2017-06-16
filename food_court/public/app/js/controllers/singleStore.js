@@ -11,20 +11,23 @@ angular.module("foodCourt").controller('singleStore',function($routeParams,$scop
     })
 
 
-    $scope.updateStore=function(){
+    $scope.updateStore=function(valid){
         console.log('DATA AFTER EDITING',$scope.store.StoreLogo);
         if ($rootScope.filesuploaded) {
             $scope.store.StoreLogo = $rootScope.filesuploaded.name
         }
-        Stores.update($scope.StoreID,$scope.store).then(function(data){
-            if (data.status ==200) {
-                $location.url('/stores/'+$scope.StoreID)
-            }else {
-                alert('sry there is a problem updating the data')
-            }
-        },function(err){
-            console.log(err);
-        })
+        if (valid) {
+            Stores.update($scope.StoreID,$scope.store).then(function(data){
+                if (data.status ==200) {
+                    $location.url('/stores/'+$scope.StoreID)
+                }else {
+                    alert('sry there is a problem updating the data')
+                }
+            },function(err){
+                console.log(err);
+            })
+        }
+
     }
 
     $scope.image_deleted=function(){
