@@ -71,6 +71,7 @@ angular.module('foodCourt').factory('Stores',function($http,$q,$rootScope){
                         'Process-Data': false
                     }
                 }).then(function(res){
+                    $rootScope.filesuploaded=""
                     console.log(res.data)
                     def.resolve(res.data)
 

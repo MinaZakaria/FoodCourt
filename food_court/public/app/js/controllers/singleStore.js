@@ -13,9 +13,9 @@ angular.module("foodCourt").controller('singleStore',function($routeParams,$scop
 
     $scope.updateStore=function(valid){
         console.log('DATA AFTER EDITING',$scope.store.StoreLogo);
-        if ($rootScope.filesuploaded) {
-            $scope.store.StoreLogo = $rootScope.filesuploaded.name
-        }
+        // if ($rootScope.filesuploaded) {
+        //     $scope.store.StoreLogo = $rootScope.filesuploaded.name
+        // }
         if (valid) {
             Stores.update($scope.StoreID,$scope.store).then(function(data){
                 if (data.status ==200) {
